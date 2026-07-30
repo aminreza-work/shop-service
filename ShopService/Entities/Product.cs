@@ -8,6 +8,7 @@ namespace ShopService.Entities
     {
      
         public int Id { get; set; }
+        public int ShopId { get; set; }
         public string Title { get; set; } //nvarchar(MAX)
         public int Qty { get; set; } 
         public decimal Price { get; set; } //decimal(18,2)
@@ -17,6 +18,10 @@ namespace ShopService.Entities
         public DateTime? UpdatedAt { get; set; }
 
 
+
+
+
+        public Shop Shop { get; set; }
         public IEnumerable<InvoiceItem> InvoiceItems { get; set; }
     }
 }

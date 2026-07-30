@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ShopService.Entities;
+using ShopService.Repositories;
 
 namespace ShopService.Controllers
 {
@@ -8,18 +9,18 @@ namespace ShopService.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly AppDbContext _db;
-        public ProductController(AppDbContext context)
+        private readonly IProduct _repo;
+        public ProductController(IProduct repository)
         {
-            _db = context;
+            _repo = repository;
         }
 
 
         [HttpGet]
         public ActionResult<IEnumerable<Product>> Search()
         {
-            var products = _db.Products.ToList();
-
+            var products = _repo.GetProducts();
+            //Map (Automapper : Product => SearchProductDTO)
             return Ok(products);
         }
     }

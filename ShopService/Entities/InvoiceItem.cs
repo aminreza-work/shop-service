@@ -1,4 +1,6 @@
-﻿namespace ShopService.Entities
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ShopService.Entities
 {
     public class InvoiceItem
     {
