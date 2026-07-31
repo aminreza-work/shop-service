@@ -12,6 +12,7 @@ namespace ShopService.Entities
         public string Name { get; set; }
         public bool IsVerified { get; set; }
         public DateTime CreatedAt { get; set; }
+        public int PhoneNumber { get; set; }
 
 
 
