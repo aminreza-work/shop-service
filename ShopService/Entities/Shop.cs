@@ -14,6 +14,8 @@ namespace ShopService.Entities
         public DateTime CreatedAt { get; set; }
         public int PhoneNumber { get; set; }
 
+        public string Title { get; set; }
+
 
 
 
