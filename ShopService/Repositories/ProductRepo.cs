@@ -1,4 +1,6 @@
-﻿using ShopService.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using ShopService.Entities;
+using ShopService.Enums;
 
 namespace ShopService.Repositories
 {
@@ -10,14 +12,27 @@ namespace ShopService.Repositories
             _db = context;
         }
 
+        public void CreateProduct(string title, decimal price, int qty, bool isPublished)
+        {
+            throw new NotImplementedException();
+        }
+
         public Product GetProductById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public List<Product> GetProducts()
+        public IEnumerable<Product> GetProducts()
         {
-            var products = _db.Products.ToList();
+            var products = _db.Products
+                .Include(x=>x.Shop)
+                .Where(x => x.IsPublished &&
+                            x.Status == ProductVerificationStatus.Approved)
+                .OrderByDescending(x => x.CreatedAt);
+
+            //var products1 = _db.Products
+            //    .Where(x => x.IsPublished && (x.Status == ProductVerificationStatus.Pending || x.Status == ProductVerificationStatus.Rejected));
+
             return products;
         }
     }

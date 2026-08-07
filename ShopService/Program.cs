@@ -1,5 +1,8 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using ShopService;
+using ShopService.Controllers.Product;
 using ShopService.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,9 +17,18 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
 
 builder.Services.AddScoped<IProduct, ProductRepo>();
 
+
+builder.Services.AddAutoMapper(cfg =>
+{
+    cfg.AddProfile<ProductMapper>();
+});
+
+
+
+
+
+
 var app = builder.Build();
-
-
 // Configure the HTTP request pipeline.
 
 using (var scope = app.Services.CreateScope())

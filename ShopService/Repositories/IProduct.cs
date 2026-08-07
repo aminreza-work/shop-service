@@ -4,7 +4,10 @@ namespace ShopService.Repositories
 {
     public interface IProduct
     {
-        List<Product> GetProducts();
+        IEnumerable<Product> GetProducts();
         Product GetProductById(int id);
+
+
+        void CreateProduct(string title, decimal price, int qty, bool isPublished);
     }
 }
