@@ -8,6 +8,11 @@ namespace ShopService.Repositories
         Product GetProductById(int id);
 
 
-        void CreateProduct(string title, decimal price, int qty, bool isPublished);
+        void CreateProduct(string title, decimal price, int qty, bool isPublished)
+        {
+            
+        }
+
+
     }
 }

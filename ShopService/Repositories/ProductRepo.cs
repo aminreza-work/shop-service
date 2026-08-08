@@ -14,7 +14,18 @@ namespace ShopService.Repositories
 
         public void CreateProduct(string title, decimal price, int qty, bool isPublished)
         {
-            throw new NotImplementedException();
+            var product     = new Product
+                {
+                Title = title,
+                Price = price,
+                Qty = qty,
+                IsPublished = isPublished,
+                Status = ProductVerificationStatus.Pending,
+            };
+
+
+
+
         }
 
         public Product GetProductById(int id)
@@ -35,5 +46,6 @@ namespace ShopService.Repositories
 
             return products;
         }
+
     }
 }

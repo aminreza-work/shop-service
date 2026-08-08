@@ -32,6 +32,17 @@ namespace ShopService.Controllers.Product
             return Ok(mappedProducts);
         }
 
+        [HttpPost]
+        public IActionResult Create([FromBody] CreateProductsDTO dto)
+        {
+            _repo.CreateProduct(
+                dto.Title,
+                dto.Price,
+                dto.Qty,
+                dto.IsPublished
+            );
 
+            return Ok();
+        }
     }
 }
