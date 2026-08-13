@@ -16,6 +16,8 @@ namespace ShopService.Controllers.Product
                         return "نامشخص";
                     return s.Shop.Title;
                 }));
+
+
         }
     }
 }

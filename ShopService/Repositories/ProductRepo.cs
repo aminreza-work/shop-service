@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ShopService.Entities;
 using ShopService.Enums;
+using ShopService.Shared.Objects;
 
 namespace ShopService.Repositories
 {
@@ -12,10 +13,27 @@ namespace ShopService.Repositories
             _db = context;
         }
 
-        public void CreateProduct(string title, decimal price, int qty, bool isPublished)
+        public RepoResult CreateProduct(string title, decimal price, int qty, bool isPublished)
         {
-            var product     = new Product
-                {
+
+            // var validate = new ProductValidator(product);
+
+            if (price < 1000)
+                return new RepoResult(false, "قیمت محصول الگوی استانداردی ندارد");
+
+            if (string.IsNullOrWhiteSpace(title))
+                return new RepoResult(false, "عنوان محصول الگوی استانداردی ندارد");
+
+            title = title.Trim();
+
+            var exist = _db.Products.Any(x => x.Title == title);
+            if (exist)
+                return new RepoResult(false, "این محصول تکراری است");
+
+            //
+            
+            var product = new Product
+            {
                 Title = title,
                 Price = price,
                 Qty = qty,
@@ -23,28 +41,30 @@ namespace ShopService.Repositories
                 Status = ProductVerificationStatus.Pending,
             };
 
+            _db.Products.Add(product);
+            _db.SaveChanges();
 
-
-
+            return new RepoResult(true, null);
         }
 
-        public Product GetProductById(int id)
+        public RepoResult<Product> GetProductById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Product> GetProducts()
+        public RepoResult<IEnumerable<Product>> GetProducts()
         {
             var products = _db.Products
-                .Include(x=>x.Shop)
+                .Include(x => x.Shop)
                 .Where(x => x.IsPublished &&
                             x.Status == ProductVerificationStatus.Approved)
                 .OrderByDescending(x => x.CreatedAt);
 
+
             //var products1 = _db.Products
             //    .Where(x => x.IsPublished && (x.Status == ProductVerificationStatus.Pending || x.Status == ProductVerificationStatus.Rejected));
 
-            return products;
+            return new RepoResult<IEnumerable<Product>>(true,null, products);
         }
 
     }

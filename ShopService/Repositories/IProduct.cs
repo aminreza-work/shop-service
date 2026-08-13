@@ -1,17 +1,15 @@
 ﻿using ShopService.Entities;
+using ShopService.Shared.Objects;
 
 namespace ShopService.Repositories
 {
     public interface IProduct
     {
-        IEnumerable<Product> GetProducts();
-        Product GetProductById(int id);
+        RepoResult<IEnumerable<Product>> GetProducts();
+        RepoResult<Product> GetProductById(int id);
 
 
-        void CreateProduct(string title, decimal price, int qty, bool isPublished)
-        {
-            
-        }
+        RepoResult CreateProduct(string title, decimal price, int qty, bool isPublished);
 
 
     }

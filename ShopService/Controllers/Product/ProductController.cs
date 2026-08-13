@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using ShopService.Controllers.Product.DTOs;
 using ShopService.Entities;
@@ -25,24 +26,32 @@ namespace ShopService.Controllers.Product
         [HttpGet]
         public ActionResult<IEnumerable<SearchProductsDTO>> Search()
         {
-            var products = _repo.GetProducts();
+            var result = _repo.GetProducts();
 
-            var mappedProducts = _mapper.Map<IEnumerable<SearchProductsDTO>>(products);
+            if (result.IsSuccess)
+            {
+                var mappedData = _mapper.Map<IEnumerable<SearchProductsDTO>>(result.Data);
+                return Ok(mappedData);
+            }
+            return BadRequest(result.Message);
 
-            return Ok(mappedProducts);
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] CreateProductsDTO dto)
+        public IActionResult Create(CreateProductDTO dto)
         {
-            _repo.CreateProduct(
+            var result = _repo.CreateProduct(
                 dto.Title,
                 dto.Price,
                 dto.Qty,
                 dto.IsPublished
             );
 
-            return Ok();
+            if (result.IsSuccess)
+                return Ok();
+            return BadRequest(result.Message);
+
+
         }
     }
 }
