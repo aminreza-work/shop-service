@@ -36,7 +36,14 @@ namespace ShopService.Controllers.Product
             return BadRequest(result.Message);
 
         }
+        [HttpGet("{id}")]
+        public ActionResult<IEnumerable<GetProductByIdDTO>> GetResult(Guid productId)
+        {
 
+            var result = _repo.GetProductById(Guid.Empty);
+            if (result.IsSuccess)
+                }
+        
         [HttpPost]
         public IActionResult Create(CreateProductDTO dto)
         {

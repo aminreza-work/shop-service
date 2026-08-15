@@ -10,7 +10,6 @@ namespace ShopService.Repositories
 
 
         RepoResult CreateProduct(string title, decimal price, int qty, bool isPublished);
-
-
+        object GetProductById(Guid id);
     }
 }

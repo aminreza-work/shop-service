@@ -49,7 +49,12 @@ namespace ShopService.Repositories
 
         public RepoResult<Product> GetProductById(int id)
         {
-            throw new NotImplementedException();
+            var products = _db.Products
+                .Include(a => a.Shop)
+                .Where(a => a.IsPublished &&
+                            a.Status == ProductVerificationStatus.Approved)
+                .OrderByDescending(a => a.CreatedAt);
+            throw new NotImplementedException("Bad Request");
         }
 
         public RepoResult<IEnumerable<Product>> GetProducts()

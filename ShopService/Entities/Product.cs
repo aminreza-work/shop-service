@@ -7,7 +7,7 @@ namespace ShopService.Entities
     public class Product
     {
      
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public int ShopId { get; set; }
         public string Title { get; set; } //nvarchar(MAX)
         public int Qty { get; set; } 
