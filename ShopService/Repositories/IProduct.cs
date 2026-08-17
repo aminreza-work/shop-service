@@ -5,11 +5,19 @@ namespace ShopService.Repositories
 {
     public interface IProduct
     {
-        RepoResult<IEnumerable<Product>> GetProducts();
-        RepoResult<Product> GetProductById(int id);
+        //CRUD (Read, Create, Update, Delete)
+        // Search => GetList(Filter)
+        // Read => GetItemById
+        // Create => CreateItem
+        // Update => UpdateItem, UpdateField
+        // Delete => X
 
+        // Product (Admin, Seller, Buyer, Public)
+        // 
 
-        RepoResult CreateProduct(string title, decimal price, int qty, bool isPublished);
-        object GetProductById(Guid id);
+        RepoResult<IEnumerable<Product>> GetProducts(); // Search
+        RepoResult<Product> GetProductById(Guid id); // Read
+        RepoResult CreateProduct(int shopId, string title, decimal price, int qty, bool isPublished); //Create
+
     }
 }

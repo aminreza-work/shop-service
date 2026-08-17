@@ -37,17 +37,24 @@ namespace ShopService.Controllers.Product
 
         }
         [HttpGet("{id}")]
-        public ActionResult<IEnumerable<GetProductByIdDTO>> GetResult(Guid productId)
+        public ActionResult<ReadProductDTO> Read(Guid productId)
         {
 
-            var result = _repo.GetProductById(Guid.Empty);
+            var result = _repo.GetProductById(productId);
             if (result.IsSuccess)
-                }
-        
+            {
+                var mappedData = _mapper.Map<ReadProductDTO>(result.Data);
+                return Ok(mappedData);
+            }
+
+            return BadRequest(result.Message);
+        }
+
         [HttpPost]
         public IActionResult Create(CreateProductDTO dto)
         {
             var result = _repo.CreateProduct(
+                dto.ShopId,
                 dto.Title,
                 dto.Price,
                 dto.Qty,

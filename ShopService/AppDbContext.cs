@@ -12,6 +12,7 @@ namespace ShopService
         }
         public DbSet<Product> Products { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
+        public DbSet<Shop> Shops { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

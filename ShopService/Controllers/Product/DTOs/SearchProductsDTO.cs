@@ -4,7 +4,7 @@ namespace ShopService.Controllers.Product.DTOs
 {
     public class SearchProductsDTO
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Title { get; set; }
         public string ShopTitle { get; set; }
         public int Qty { get; set; }

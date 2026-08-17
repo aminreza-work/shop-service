@@ -13,16 +13,26 @@ namespace ShopService.Repositories
             _db = context;
         }
 
-        public RepoResult CreateProduct(string title, decimal price, int qty, bool isPublished)
+        public RepoResult CreateProduct(int shopId, string title, decimal price, int qty, bool isPublished)
         {
 
             // var validate = new ProductValidator(product);
-
-            if (price < 1000)
+            if(price < 1000)
                 return new RepoResult(false, "قیمت محصول الگوی استانداردی ندارد");
 
             if (string.IsNullOrWhiteSpace(title))
                 return new RepoResult(false, "عنوان محصول الگوی استانداردی ندارد");
+
+
+
+            var shop = _db.Shops.SingleOrDefault(s => s.Id == shopId);
+            if (shop == null)
+                return new RepoResult(false, "فروشگاه یافت نشد!");
+
+            if (!shop.IsVerified)
+                return new RepoResult(false, "امکان ایجاد محصول برای این فروشگاه وجود ندارد!");
+
+            
 
             title = title.Trim();
 
@@ -31,14 +41,17 @@ namespace ShopService.Repositories
                 return new RepoResult(false, "این محصول تکراری است");
 
             //
-            
+
             var product = new Product
             {
+                Id =  Guid.NewGuid(),   
+                ShopId = shopId,
                 Title = title,
                 Price = price,
                 Qty = qty,
                 IsPublished = isPublished,
                 Status = ProductVerificationStatus.Pending,
+                CreatedAt = DateTime.Now,
             };
 
             _db.Products.Add(product);
@@ -47,14 +60,18 @@ namespace ShopService.Repositories
             return new RepoResult(true, null);
         }
 
-        public RepoResult<Product> GetProductById(int id)
+    
+
+        public RepoResult<Product> GetProductById(Guid id)
         {
-            var products = _db.Products
+            var product = _db.Products
                 .Include(a => a.Shop)
-                .Where(a => a.IsPublished &&
-                            a.Status == ProductVerificationStatus.Approved)
-                .OrderByDescending(a => a.CreatedAt);
-            throw new NotImplementedException("Bad Request");
+                .SingleOrDefault(x => x.Id == id);
+
+            if (product is null)
+                return new RepoResult<Product>(false, "محصول یافت نشد!", null);
+            // Else
+            return new RepoResult<Product>(true, null, product);
         }
 
         public RepoResult<IEnumerable<Product>> GetProducts()
@@ -69,8 +86,9 @@ namespace ShopService.Repositories
             //var products1 = _db.Products
             //    .Where(x => x.IsPublished && (x.Status == ProductVerificationStatus.Pending || x.Status == ProductVerificationStatus.Rejected));
 
-            return new RepoResult<IEnumerable<Product>>(true,null, products);
+            return new RepoResult<IEnumerable<Product>>(true, null, products);
         }
+
 
     }
 }

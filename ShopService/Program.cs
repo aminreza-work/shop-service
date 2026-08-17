@@ -21,6 +21,7 @@ builder.Services.AddScoped<IProduct, ProductRepo>();
 builder.Services.AddAutoMapper(cfg =>
 {
     cfg.AddProfile<ProductMapper>();
+
 });
 
 
