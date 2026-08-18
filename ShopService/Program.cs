@@ -16,6 +16,7 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
         opt.UseSqlServer(configs.GetConnectionString("Connection1")));
 
 builder.Services.AddScoped<IProduct, ProductRepo>();
+builder.Services.AddScoped<IShop, ShopRepo>();
 
 
 builder.Services.AddAutoMapper(cfg =>

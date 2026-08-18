@@ -12,6 +12,7 @@ namespace ShopService
         }
         public DbSet<Product> Products { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
+        public DbSet<InvoiceItem> InvoicesItem { get; set; }
         public DbSet<Shop> Shops { get; set; }
 
 
@@ -20,7 +21,8 @@ namespace ShopService
             base.OnModelCreating(modelBuilder);
 
             // Fluent API
-
+            modelBuilder.ApplyConfiguration(new InvoiceConfig());
+            modelBuilder.ApplyConfiguration(new ShopConfig());
             modelBuilder.ApplyConfiguration(new ProductConfig());
             modelBuilder.ApplyConfiguration(new InvoiceItemConfig());
 
