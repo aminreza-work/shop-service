@@ -1,26 +1,17 @@
 ﻿using AutoMapper;
-using ShopService.Controllers.Shop.DTOs;
 using ShopService.Entities;
+using ShopService.Controllers.Shop.DTOs;
 
 namespace ShopService.Controllers.Shop.DTOs
 {
     public class ShopMapper : Profile
     {
-
-        public ShopMapper() 
-        { 
-            
+        public ShopMapper()
+        {
             CreateMap<Entities.Shop, SearchShopsDTO>()
-                .Include(x => x.ShopTitle)
-                .Include(x => x.PhoneNumber)
-                .Include(x => x.Userid)
-                if (User id = null)
-                    return "Unknown Error";
-
+                .ForMember(d => d.ShopTitle, opt => opt.MapFrom(s => s.Title))
+                .ForMember(d => d.PhoneNumber, opt => opt.MapFrom(s => s.PhoneNumber))
+                .ForMember(d => d.Userid, opt => opt.MapFrom(s => s.Id));
         }
     }
-
-
-
-
 }
