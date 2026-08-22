@@ -1,7 +1,10 @@
 namespace ShopService.Enums
- public enum {
+{
+    public enum ShopVerificationStatus
+    {
 
-    Rejected = 0,
-    Pending = 1,
-    Apporoved = 2,
+        Rejected = 0,
+        Pending = 1,
+        Apporoved = 2,
+    }
 }
