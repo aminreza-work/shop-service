@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ShopService.Migrations
 {
     /// <inheritdoc />
-    public partial class productnewconfigs : Migration
+    public partial class Productnewconfigs : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

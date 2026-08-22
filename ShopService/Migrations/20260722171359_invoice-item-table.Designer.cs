@@ -13,7 +13,7 @@ namespace ShopService.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     [Migration("20260722171359_invoice-item-table")]
-    partial class invoiceitemtable
+    partial class Invoiceitemtable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

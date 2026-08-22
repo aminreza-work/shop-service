@@ -13,7 +13,7 @@ namespace ShopService.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     [Migration("20260730044642_shop-table")]
-    partial class shoptable
+    partial class Shoptable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -13,7 +13,7 @@ namespace ShopService.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     [Migration("20260722161251_product-new-configs")]
-    partial class productnewconfigs
+    partial class Productnewconfigs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

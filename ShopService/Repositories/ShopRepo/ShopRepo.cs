@@ -13,16 +13,17 @@ namespace ShopService.Repositories
             _db = context;
         }
 
-        public RepoResult CreateShop(int Userid, string ShopTitle, bool IsVerified, string Address, int PhoneNumber)
+        public RepoResult CreateShop(int Userid, string ShopTitle, bool IsVerified, string Address, string PhoneNumber)
         {
             if (string.IsNullOrWhiteSpace(ShopTitle))
                 return new RepoResult(false, "اسم الگوی استاندارد ندارد");
+            if (!IsVerified)
+                return new RepoResult(false ,"حساب کاربری غیر فعال است");
             if (ShopTitle.Length <= 4)
                 return new RepoResult(false , "طول اسم کمتر از حد مجاز");
             if (ShopTitle.Length > 10)
                 return new RepoResult(false , "طول اسم بیش از حد مجاز");
-            if (!IsVerified)
-                return new RepoResult("حساب کاربری غیر فعال است");
+            
 
            // var exist _db.Shops.Any (x => x.shopTitle == ShopTitle);
            // if (exist)
@@ -35,6 +36,7 @@ namespace ShopService.Repositories
                 IsVerified = IsVerified,
                 Address = Address,
                 PhoneNumber = PhoneNumber,
+                CreatedAt = DateTime.UtcNow
             };
 
             _db.Shops.Add(shop);
@@ -48,8 +50,8 @@ namespace ShopService.Repositories
             var shop = _db.Shops 
                 .SingleOrDefault(x => x.Id == Userid);
             if (shop == null)
-                return new RepoResult<Shop>(false ,  "فروشگاه یافت نشد");
-            return new RepoResult<Shop>(true, null, shop);
+                return new RepoResult<Shop>(false ,"فروشگاه یافت نشد",shop);
+                return new RepoResult<Shop>(true, null, shop);
 
 
         }

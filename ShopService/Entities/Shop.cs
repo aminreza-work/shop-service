@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using ShopService.Enums;
 
 namespace ShopService.Entities
 {
@@ -9,16 +9,15 @@ namespace ShopService.Entities
             Products = new List<Product>();
         }
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string Title { get; set; }
         public bool IsVerified { get; set; }
         public DateTime CreatedAt { get; set; }
-        public int PhoneNumber { get; set; }
-
-        public string Title { get; set; }
-
-
+        public string PhoneNumber { get; set; }
+        public string Address {  get; set; }
+        public ShopVerificationStatus Status { get; set; }
 
 
         public IEnumerable<Product> Products { get; set; }
     }
 }
+

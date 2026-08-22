@@ -5,6 +5,6 @@ namespace ShopService.Enums
 
         Rejected = 0,
         Pending = 1,
-        Apporoved = 2,
+        Approved = 2,
     }
 }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ShopService.Migrations
 {
     /// <inheritdoc />
-    public partial class invoicetable : Migration
+    public partial class Invoicetable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

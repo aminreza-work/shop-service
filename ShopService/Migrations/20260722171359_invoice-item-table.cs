@@ -5,7 +5,7 @@
 namespace ShopService.Migrations
 {
     /// <inheritdoc />
-    public partial class invoiceitemtable : Migration
+    public partial class Invoiceitemtable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

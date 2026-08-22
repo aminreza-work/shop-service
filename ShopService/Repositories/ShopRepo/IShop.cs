@@ -7,8 +7,8 @@ namespace ShopService.Repositories
     public interface IShop
     {
     RepoResult<IEnumerable<Shop>> SearchShop(); // Search
-    RepoResult<Shop> ReadShop(Userid); // Read
-    RepoResult CreateShop(int Userid, string ShopTitle, bool IsVerified, string Address, int PhoneNumber);
+    RepoResult<Shop> ReadShop(int Userid); // Read
+    RepoResult CreateShop(int Userid, string ShopTitle, bool IsVerified, string Address, string PhoneNumber);
     }
 
 }
