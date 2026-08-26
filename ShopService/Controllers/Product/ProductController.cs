@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -14,17 +15,21 @@ namespace ShopService.Controllers.Product
     {
         private readonly IProduct _repo;
         private readonly IMapper _mapper;
+        private readonly IValidator<CreateProductDTO> _validator;
         public ProductController(
             IProduct repository,
-            IMapper mapper)
+            IMapper mapper,
+            IValidator<CreateProductDTO> validator)
         {
             _repo = repository;
             _mapper = mapper;
+            _validator = validator;
         }
 
 
         [HttpGet]
-        public ActionResult<IEnumerable<SearchProductsDTO>> Search()
+        // [GET] api/product?page=1
+        public ActionResult<IEnumerable<SearchProductsDTO>> Search(int page)
         {
             var result = _repo.GetProducts();
 
@@ -37,9 +42,10 @@ namespace ShopService.Controllers.Product
 
         }
         [HttpGet("{id}")]
+        // [GET] api/product/a3e930f6-a0dd-4d93-b1a6-95ef8cca7de5   
         public ActionResult<ReadProductDTO> Read(Guid productId)
         {
-
+            // Http & Routing - Restful API
             var result = _repo.GetProductById(productId);
             if (result.IsSuccess)
             {
@@ -51,8 +57,22 @@ namespace ShopService.Controllers.Product
         }
 
         [HttpPost]
+        // [POST] api/product
         public IActionResult Create(CreateProductDTO dto)
         {
+
+            var validateRes = _validator.Validate(dto);
+          
+            if (!validateRes.IsValid)
+            {
+                var errors = validateRes.Errors.Select(e => new
+                {
+                    Property = e.PropertyName,
+                    Message = e.ErrorMessage
+                });
+                return BadRequest(errors);
+            }
+         
             var result = _repo.CreateProduct(
                 dto.ShopId,
                 dto.Title,
@@ -67,5 +87,14 @@ namespace ShopService.Controllers.Product
 
 
         }
+
+        //[HttpPut("{id}")]
+        //// [PUT] api/product/a3e930f6-a0dd-4d93-b1a6-95ef8cca7de5   
+        //public IActionResult Update(Guid id, [FromBody] UpdateProductDTO input)
+        //{
+
+        //}
     }
 }
+
+

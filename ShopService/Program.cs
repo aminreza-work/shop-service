@@ -1,8 +1,11 @@
 using AutoMapper;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ShopService;
 using ShopService.Controllers.Product;
+using ShopService.Controllers.Product.DTOs.Validators;
+using ShopService.Controllers.Shop.DTOs;
 using ShopService.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,9 +25,11 @@ builder.Services.AddScoped<IShop, ShopRepo>();
 builder.Services.AddAutoMapper(cfg =>
 {
     cfg.AddProfile<ProductMapper>();
+    cfg.AddProfile<ShopMapper>();
 
 });
 
+builder.Services.AddValidatorsFromAssemblyContaining<CreateProductValidator>();
 
 
 

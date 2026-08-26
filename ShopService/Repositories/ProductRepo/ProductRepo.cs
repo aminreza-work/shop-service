@@ -17,11 +17,11 @@ namespace ShopService.Repositories
         {
 
             // var validate = new ProductValidator(product);
-            if(price < 1000)
-                return new RepoResult(false, "قیمت محصول الگوی استانداردی ندارد");
+            //if(price < 1000)
+            //    return new RepoResult(false, "قیمت محصول الگوی استانداردی ندارد");
 
-            if (string.IsNullOrWhiteSpace(title))
-                return new RepoResult(false, "عنوان محصول الگوی استانداردی ندارد");
+            //if (string.IsNullOrWhiteSpace(title))
+            //    return new RepoResult(false, "عنوان محصول الگوی استانداردی ندارد");
 
 
 
