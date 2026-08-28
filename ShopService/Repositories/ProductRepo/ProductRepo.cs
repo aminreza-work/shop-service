@@ -88,24 +88,24 @@ namespace ShopService.Repositories
 
             return new RepoResult<IEnumerable<Product>>(true, null, products);
         }
-        public RepoResult<Product> UpdateProduct()
+        public RepoResult UpdateProduct(Guid id, int Qty, decimal Price)
         {
             var products = _db.Products
                 .Include(x => x.Shop)
                 .SingleOrDefault(x => x.Id == id);
-            if (price >= price)
-                return new RepoResult<Product>(false, "قیمت نا معتبر");
-            if (products.Qty > 0)
-                return new RepoResult<Product>(true, "با موفقیت موجودی بروز شد");
-            if (products.Qty < 0)
-                return new RepoResult<Product>(false, "موجودی کمتر از حد مجاز");
+            if (product == null)
+                return new RepoResult(false, "محصول یافت نشد!");
 
-            var product = new Product
-            {
-                Price = price,
-                Qty = qty,
-                UpdatedAt = DateTime.UtcNow,
-            };
+            if (price < 1000)
+                return new RepoResult(false, "قیمت محصول نامعتبر است!");
+
+            if (qty < 0)
+                return new RepoResult(false, "موجودی محصول نمی‌تواند منفی باشد!");
+
+            Product.price = Price;
+            product.Qty = Qty;
+            product.UpdatedAt = DateTime.UtcNow;
+            _db.SaveChanges();
         }
 
     }
