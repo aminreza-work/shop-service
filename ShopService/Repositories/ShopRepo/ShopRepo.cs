@@ -1,7 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 using ShopService.Entities;
 using ShopService.Enums;
+using ShopService.Migrations;
 using ShopService.Shared.Objects;
+using System.Net;
 
 namespace ShopService.Repositories
 {
@@ -13,7 +16,7 @@ namespace ShopService.Repositories
             _db = context;
         }
 
-        public RepoResult CreateShop(int Userid, string ShopTitle, bool IsVerified, string Address, string PhoneNumber)
+        public RepoResult CreateShop(int userId, string ShopTitle, bool IsVerified, string Address, string PhoneNumber)
         {
             // PascalCase   
             // camelCase
@@ -46,7 +49,7 @@ namespace ShopService.Repositories
 
             var shop = new Shop
             {
-                Id = Userid,
+                Id = userId,
                 Title = ShopTitle,
                 IsVerified = IsVerified,
                 Address = Address,
@@ -59,12 +62,12 @@ namespace ShopService.Repositories
             return _.OK();
 
         }
-        public RepoResult<Shop> ReadShop(int Userid)
+        public RepoResult<Shop> ReadShop(int userId)
         {
             var _ = new RepoResult<Shop>();
 
             var shop = _db.Shops
-                .SingleOrDefault(x => x.Id == Userid);
+                .SingleOrDefault(x => x.Id == userId);
 
             if (shop == null)
                 return _.Error("فروشگاه یافت نشد");
@@ -77,8 +80,6 @@ namespace ShopService.Repositories
             //var pageSize = 20;
 
             var shops = _db.Shops
-                .Where(a => a.IsVerified &&
-                            a.Status == ShopVerificationStatus.Approved)
                 .OrderByDescending(a => a.CreatedAt);
 
 
@@ -98,6 +99,27 @@ namespace ShopService.Repositories
 
 
             return new RepoResult<IEnumerable<Shop>>(true, null, shops);
+        }
+        public RepoResult UpdateShop(int userId, string Address, string ShopTitle, string PhoneNumber)
+
+        {
+            var shop = _db.Shops
+                .SingleOrDefault(x => x.Id == userId);
+            if (shop == null)
+                return new RepoResult(false, "فروشگاه پیدا نشد ");
+            if (string.IsNullOrWhiteSpace(ShopTitle))
+                return new RepoResult(false, "عنوان فروشگاه نا معتبر است");
+            if (string.IsNullOrWhiteSpace(Address))
+                return new RepoResult(false, "ادرس نا معتبر است");
+            if (string.IsNullOrWhiteSpace(PhoneNumber))
+                return new RepoResult(false, "شماره نا معتبر");
+
+            shop.ShopTitle = ShopTitle;
+            shop.Address = Address;
+            shop.PhoneNumber = PhoneNumber;
+
+            _db.SaveChanges();
+            return new RepoResult(true, null);
         }
     }
 }

@@ -2,9 +2,9 @@
 {
     public class ReadShopDTO
     {
-        public int Userid { get; set; }
+        public int userId { get; set; }
         public string ShopTitle { get; set; }
-    public string Address { get; set; }
+        public string Address { get; set; }
         public int PhoneNumber { get; set; }
     }
 

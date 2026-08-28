@@ -11,7 +11,7 @@ namespace ShopService.Controllers.Shop.DTOs
             CreateMap<Entities.Shop, SearchShopsDTO>()
                 .ForMember(d => d.ShopTitle, opt => opt.MapFrom(s => s.Title))
                 .ForMember(d => d.PhoneNumber, opt => opt.MapFrom(s => s.PhoneNumber))
-                .ForMember(d => d.Userid, opt => opt.MapFrom(s => s.Id));
+                .ForMember(d => d.userId, opt => opt.MapFrom(s => s.Id));
         }
     }
 }

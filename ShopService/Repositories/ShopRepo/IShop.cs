@@ -8,7 +8,8 @@ namespace ShopService.Repositories
     {
         RepoResult<IEnumerable<Shop>> SearchShop(); // Search
         RepoResult<Shop> ReadShop(int userId); // Read
-        RepoResult CreateShop(int userId, string ShopTitle, bool IsVerified, string Address, string PhoneNumber);
+        RepoResult CreateShop(int userId, string ShopTitle, bool IsVerified, string Address, string PhoneNumber); //Create
+        RepoResult UpdateShop(int userId ,string Address, string ShopTitle , string PhoneNumber); //Update
     }
 
 }

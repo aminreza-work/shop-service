@@ -15,8 +15,6 @@ namespace ShopService.Controllers.Product.DTOs.Validators
             RuleFor(x => x.Price)
             .GreaterThan(1000)
             .WithMessage("قیمت محصول الگوی استانداردی ندارد");
-
-
         }
     }
 }

@@ -10,9 +10,11 @@ namespace ShopService.Entities
         }
         public int Id { get; set; }
         public string Title { get; set; }
+        public string ShopTitle { get; set; }
         public bool IsVerified { get; set; }
         public DateTime CreatedAt { get; set; }
         public string PhoneNumber { get; set; }
+
         public string Address {  get; set; }
         public ShopVerificationStatus Status { get; set; }
 

@@ -15,9 +15,6 @@ namespace ShopService.Entities.Configs
                 builder.Property(b => b.PhoneNumber)
                    .HasMaxLength(11)
                    .IsRequired();
-
-
-
             }
         }
     }

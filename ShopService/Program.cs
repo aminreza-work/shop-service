@@ -6,6 +6,7 @@ using ShopService;
 using ShopService.Controllers.Product;
 using ShopService.Controllers.Product.DTOs.Validators;
 using ShopService.Controllers.Shop.DTOs;
+using ShopService.Controllers.Shop.DTOs.Validators;
 using ShopService.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -30,6 +31,8 @@ builder.Services.AddAutoMapper(cfg =>
 });
 
 builder.Services.AddValidatorsFromAssemblyContaining<CreateProductValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<CreateShopValidator>();
+
 
 
 
