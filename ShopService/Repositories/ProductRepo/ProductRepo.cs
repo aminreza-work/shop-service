@@ -32,7 +32,7 @@ namespace ShopService.Repositories
             if (!shop.IsVerified)
                 return new RepoResult(false, "امکان ایجاد محصول برای این فروشگاه وجود ندارد!");
 
-            
+
 
             title = title.Trim();
 
@@ -44,7 +44,7 @@ namespace ShopService.Repositories
 
             var product = new Product
             {
-                Id =  Guid.NewGuid(),   
+                Id = Guid.NewGuid(),
                 ShopId = shopId,
                 Title = title,
                 Price = price,
@@ -60,7 +60,7 @@ namespace ShopService.Repositories
             return new RepoResult(true, null);
         }
 
-    
+
 
         public RepoResult<Product> GetProductById(Guid id)
         {
@@ -88,7 +88,25 @@ namespace ShopService.Repositories
 
             return new RepoResult<IEnumerable<Product>>(true, null, products);
         }
+        public RepoResult<Product> UpdateProduct()
+        {
+            var products = _db.Products
+                .Include(x => x.Shop)
+                .SingleOrDefault(x => x.Id == id);
+            if (price >= price)
+                return new RepoResult<Product>(false, "قیمت نا معتبر");
+            if (products.Qty > 0)
+                return new RepoResult<Product>(true, "با موفقیت موجودی بروز شد");
+            if (products.Qty < 0)
+                return new RepoResult<Product>(false, "موجودی کمتر از حد مجاز");
 
+            var product = new Product
+            {
+                Price = price,
+                Qty = qty,
+                UpdatedAt = DateTime.UtcNow,
+            };
+        }
 
     }
 }
