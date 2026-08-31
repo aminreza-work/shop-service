@@ -62,7 +62,7 @@ namespace ShopService.Controllers.Product
         {
 
             var validateRes = _validator.Validate(dto);
-          
+
             if (!validateRes.IsValid)
             {
                 var errors = validateRes.Errors.Select(e => new
@@ -72,7 +72,7 @@ namespace ShopService.Controllers.Product
                 });
                 return BadRequest(errors);
             }
-         
+
             var result = _repo.CreateProduct(
                 dto.ShopId,
                 dto.Title,
@@ -88,12 +88,19 @@ namespace ShopService.Controllers.Product
 
         }
 
-        //[HttpPut("{id}")]
-        //// [PUT] api/product/a3e930f6-a0dd-4d93-b1a6-95ef8cca7de5   
-        //public IActionResult Update(Guid id, [FromBody] UpdateProductDTO input)
-        //{
-
-        //}
+        [HttpPut("{id}")]
+        //[PUT] api/product/a3e930f6-a0dd-4d93-b1a6-95ef8cca7de5
+        public IActionResult UpdateProduct(Guid id, [FromBody] UpdateProductDTO input)
+        {
+            var result = _repo.UpdateProduct(
+                id,
+                input.Qty,
+                input.Price
+             );
+            if (result.IsSuccess)
+                return Ok();
+            return BadRequest(result.Message);
+        }
     }
 }
 

@@ -18,6 +18,6 @@ namespace ShopService.Repositories
         RepoResult<IEnumerable<Product>> GetProducts(); // Search
         RepoResult<Product> GetProductById(Guid id); // Read
         RepoResult CreateProduct(int shopId, string title, decimal price, int qty, bool isPublished); //Create
-        RepoResult UpdateProduct (Guid id ,int Qty,decimal Price);
+        RepoResult UpdateProduct (Guid id, int Qty, decimal Price);
     }
 }
